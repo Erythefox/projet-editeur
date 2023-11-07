@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import com.sun.media.jfxmedia.logging.Logger;
 
@@ -33,7 +34,7 @@ public class ControleurPvZanor extends Controleur{
 	private Plantes.PLANTES plantesChoisi;
 	private Zombies.ZOMBIES zombiesChoisi;
 	private Jardin jardin = new Jardin();
-	private List<Commande> historique = new ArrayList<Commande>();
+	private Stack<Commande> historique = new Stack<Commande>();
 	public ControleurPvZanor()
 	{
 		Logger.logMsg(Logger.INFO, "new ControleurPvZanor()");
@@ -132,11 +133,14 @@ public class ControleurPvZanor extends Controleur{
 	protected TERRAIN terrainChoisi = TERRAIN.ENTREE_JOUR;
 	public void notifierClicTerrain(TERRAIN terrain) {
 		Commande changerTerrain = new CommandeChangerTerrain(terrain, terrainChoisi);
+		this.terrainChoisi = terrain;
 		changerTerrain.executer();
-		historique.add(changerTerrain);
+		historique.push(changerTerrain);
+		
+		jardin.setTerrain(terrain);
 		
 		
-		if (terrain == TERRAIN.ENTREE_JOUR)
+		/*if (terrain == TERRAIN.ENTREE_JOUR)
 			this.musique(1);
 		if (terrain == TERRAIN.ENTREE_NUIT)
 			this.musique(2);
@@ -147,7 +151,14 @@ public class ControleurPvZanor extends Controleur{
 		if (terrain == TERRAIN.TOIT_JOUR)
 			this.musique(5);
 		if (terrain == TERRAIN.TOIT_NUIT)
-			this.musique(6);
+			this.musique(6);*/
+	}
+
+	public void avertirClicUndo() {
+		System.out.println("historique.pop()");
+		Commande commande = historique.pop();
+		System.out.println("Commande.annuler()");
+		commande.annuler();
 	}
 
 }

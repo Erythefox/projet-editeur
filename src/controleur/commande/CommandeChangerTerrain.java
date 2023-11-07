@@ -19,13 +19,13 @@ public class CommandeChangerTerrain extends Commande {
 	
 	@Override
 	public void executer() {
-		VuePvZanor.getInstance().afficherTerrain(terrain);
-		jardin.setTerrain(terrain);
+		VuePvZanor.getInstance().afficherTerrain(nouveauTerrain);
+		
 	}
 
 	@Override
 	public void annuler() {
-		VuePvZanor.getInstance().afficherTerrain(ancien);
+		VuePvZanor.getInstance().afficherTerrain(ancienTerrain);
 		
 	}
 
