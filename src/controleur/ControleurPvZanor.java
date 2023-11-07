@@ -2,6 +2,8 @@ package controleur;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.sun.media.jfxmedia.logging.Logger;
 
@@ -23,6 +25,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import controleur.commande.*;
 
 public class ControleurPvZanor extends Controleur{
 
@@ -30,6 +33,7 @@ public class ControleurPvZanor extends Controleur{
 	private Plantes.PLANTES plantesChoisi;
 	private Zombies.ZOMBIES zombiesChoisi;
 	private Jardin jardin = new Jardin();
+	private List<Commande> historique = new ArrayList<Commande>();
 	public ControleurPvZanor()
 	{
 		Logger.logMsg(Logger.INFO, "new ControleurPvZanor()");
@@ -124,9 +128,13 @@ public class ControleurPvZanor extends Controleur{
 		exporteur.sauvegarder(jardin);
 	}
 
+	
+	protected TERRAIN terrainChoisi = TERRAIN.ENTREE_JOUR;
 	public void notifierClicTerrain(TERRAIN terrain) {
-		VuePvZanor.getInstance().afficherTerrain(terrain);
-		jardin.setTerrain(terrain);
+		Commande changerTerrain = new CommandeChangerTerrain(terrain, terrainChoisi);
+		changerTerrain.executer();
+		historique.add(changerTerrain);
+		
 		
 		if (terrain == TERRAIN.ENTREE_JOUR)
 			this.musique(1);
