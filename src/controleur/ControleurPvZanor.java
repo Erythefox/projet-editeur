@@ -35,6 +35,7 @@ public class ControleurPvZanor extends Controleur{
 	private Zombies.ZOMBIES zombiesChoisi;
 	private Jardin jardin = new Jardin();
 	private Stack<Commande> historique = new Stack<Commande>();
+	private Stack<Commande> annulations = new Stack<Commande>();
 	public ControleurPvZanor()
 	{
 		Logger.logMsg(Logger.INFO, "new ControleurPvZanor()");
@@ -159,6 +160,10 @@ public class ControleurPvZanor extends Controleur{
 		Commande commande = historique.pop();
 		System.out.println("Commande.annuler()");
 		commande.annuler();
+	}
+
+	public void avertirClicRedo() {
+		
 	}
 
 }

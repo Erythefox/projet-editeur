@@ -68,6 +68,14 @@ public class VuePvZanor extends Vue {
 				controleur.avertirClicUndo();				
 			}});
 		
+		Button actionRedo = (Button)lookup("#action-redo");
+		actionRedo.setOnAction(new EventHandler<>() {
+
+			@Override
+			public void handle(ActionEvent e) {
+				controleur.avertirClicRedo();
+			}});
+		
 		Button entreeJour = (Button)lookup("#entree-jour");
 		entreeJour.setOnAction(new EventHandler<>() {
 
