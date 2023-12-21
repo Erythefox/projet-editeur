@@ -32,4 +32,29 @@ public class Zombies implements Exportable {
 		public String exporterJSON() {
 			return "NON-IMPLEMENTE";
 		}
+
+		public ZOMBIES getZombies() {
+			return Zombies;
+		}
+
+		public void setZombies(ZOMBIES zombies) {
+			Zombies = zombies;
+		}
+
+		public double getX() {
+			return x;
+		}
+
+		public void setX(double x) {
+			this.x = x;
+		}
+
+		public double getY() {
+			return y;
+		}
+
+		public void setY(double y) {
+			this.y = y;
+		}
+		
 }

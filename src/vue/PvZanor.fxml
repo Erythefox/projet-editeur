@@ -102,11 +102,8 @@
                         </ImageView>
                      </children>
                   </GridPane>
-                  <AnchorPane id="jardin" fx:id="jardin" layoutX="226.0" layoutY="-50.0" prefHeight="666.0" prefWidth="671.0">
-                     <children>
-                        <Rectangle id="jardin-rectangle" fx:id="jardinRectangle" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="616.0" layoutX="8.0" stroke="BLACK" strokeType="INSIDE" width="694.0" />
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane id="jardin" fx:id="jardin" layoutX="226.0" layoutY="-50.0" prefHeight="666.0" prefWidth="671.0" />
+                  <Rectangle id="jardin-rectangle" fx:id="jardinRectangle" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="616.0" layoutX="226.0" layoutY="-50.0" stroke="BLACK" strokeType="INSIDE" width="694.0" />
                </children>
             </Pane>
             <VBox layoutX="22.0" layoutY="4.0" prefHeight="200.0" prefWidth="100.0">

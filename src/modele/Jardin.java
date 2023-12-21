@@ -30,9 +30,17 @@ public class Jardin implements Exportable {
 	public List<Plantes> getPlantesDuJardin() {
 		return plantesDuJardin;
 	}
+	
+	public List<Zombies> getZombiesDuJardin() {
+		return zombiesDuJardin;
+	}
 
 	public void setPlantesDuJardin(List<Plantes> plantesDuJardin) {
 		this.plantesDuJardin = plantesDuJardin;
+	}
+	
+	public void setZombiesDuJardin(List<Zombies> zombiesDuJardin) {
+		this.zombiesDuJardin = zombiesDuJardin;
 	}
 	
 	public void ajouterPlante(Plantes plante)

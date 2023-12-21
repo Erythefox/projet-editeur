@@ -4,33 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modele.Jardin;
+import modele.Plantes;
 import modele.Zombies;
 import modele.Zombies.ZOMBIES;
 import vue.VuePvZanor;
 
-public class CommandePlacerZombie extends Commande {
+public class CommandePlacerPlante extends Commande {
 	protected Jardin jardin;
 	
-	protected List<Zombies> nouvelleListeZombie = new ArrayList<>();
-	protected List<Zombies> ancienneListeZombie = new ArrayList<>();
+	protected List<Plantes> nouvelleListePlante = new ArrayList<>();
+	protected List<Plantes> ancienneListePlante = new ArrayList<>();
 	
-	public CommandePlacerZombie(List<Zombies> ancien, List<Zombies> nouveau, Jardin jardin) {
-		this.nouvelleListeZombie = nouveau;
-		this.ancienneListeZombie = ancien;
+	public CommandePlacerPlante(List<Plantes> ancien, List<Plantes> nouveau, Jardin jardin) {
+		this.nouvelleListePlante = nouveau;
+		this.ancienneListePlante = ancien;
 		this.jardin = jardin;
 	}
 
 	@Override
 	public void executer() {
 		VuePvZanor.getInstance().EnleverImageView();
-		jardin.setZombiesDuJardin(nouvelleListeZombie);
+		jardin.setPlantesDuJardin(nouvelleListePlante);
 		VuePvZanor.getInstance().RecreerImageView();
 	}
 
 	@Override
 	public void annuler() {
 		VuePvZanor.getInstance().EnleverImageView();
-		jardin.setZombiesDuJardin(ancienneListeZombie);
+		jardin.setPlantesDuJardin(ancienneListePlante);
 		VuePvZanor.getInstance().RecreerImageView();
 	}
 }

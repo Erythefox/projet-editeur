@@ -32,4 +32,29 @@ public class Plantes implements Exportable {
 		public String exporterJSON() {
 			return "NON-IMPLEMENTE";
 		}
+
+		public PLANTES getPlantes() {
+			return Plantes;
+		}
+
+		public void setPlantes(PLANTES plantes) {
+			Plantes = plantes;
+		}
+
+		public double getX() {
+			return x;
+		}
+
+		public void setX(double x) {
+			this.x = x;
+		}
+
+		public double getY() {
+			return y;
+		}
+
+		public void setY(double y) {
+			this.y = y;
+		}
+		
 }

@@ -64,14 +64,27 @@ public class ControleurPvZanor extends Controleur{
 	
 	public void notifierClicJardin(double x, double y, Boolean zombieBool) {
 		if(zombieBool == true) {
-			VuePvZanor.getInstance().placerZombies(x, y, this.zombiesChoisi);
+			List<Zombies> ancienneListe = new ArrayList<Zombies>(jardin.getZombiesDuJardin());
 			Zombies zombies = new Zombies(this.zombiesChoisi, x, y);
 			jardin.ajouterZombie(zombies);
+			List<Zombies> nouvelleListe = new ArrayList<Zombies>(jardin.getZombiesDuJardin());
+			Commande placerZombie = new CommandePlacerZombie(ancienneListe, nouvelleListe, jardin);
+			placerZombie.executer();
+			historique.push(placerZombie);
+			//VuePvZanor.getInstance().placerZombies(x, y, this.zombiesChoisi);
+			
 		}
 		if (zombieBool == false) {
-			VuePvZanor.getInstance().planterPlantes(x, y, this.plantesChoisi);
+			List<Plantes> ancienneListe = new ArrayList<Plantes>(jardin.getPlantesDuJardin());
 			Plantes plantes = new Plantes(this.plantesChoisi, x, y);
 			jardin.ajouterPlante(plantes);
+			List<Plantes> nouvelleListe = new ArrayList<Plantes>(jardin.getPlantesDuJardin());
+			Commande placerPlante = new CommandePlacerPlante(ancienneListe, nouvelleListe, jardin);
+			placerPlante.executer();
+			historique.push(placerPlante);
+			//VuePvZanor.getInstance().planterPlantes(x, y, this.plantesChoisi);
+			//Plantes plantes = new Plantes(this.plantesChoisi, x, y);
+			//jardin.ajouterPlante(plantes);
 		}
 	}
 	
@@ -156,14 +169,27 @@ public class ControleurPvZanor extends Controleur{
 	}
 
 	public void avertirClicUndo() {
+		if (historique.size() == 0) return;
+		
 		System.out.println("historique.pop()");
 		Commande commande = historique.pop();
-		System.out.println("Commande.annuler()");
+		System.out.println("commande.annuler()");
 		commande.annuler();
+		annulations.push(commande);
 	}
 
 	public void avertirClicRedo() {
+		if (annulations.size() == 0) return;
 		
+		System.out.println("annulations.pop()");
+		Commande commande = annulations.pop();
+		System.out.println("commande.executer()");
+		commande.executer();
+		historique.push(commande);
+	}
+	
+	public Jardin getJardin() {
+		return this.jardin;
 	}
 
 }

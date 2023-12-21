@@ -1,5 +1,7 @@
 package vue;
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 
@@ -18,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
+import modele.Jardin;
 import modele.Jardin.TERRAIN;
 import modele.Plantes;
 import modele.Plantes.PLANTES;
@@ -27,7 +30,8 @@ public class VuePvZanor extends Vue {
 
 	protected ControleurPvZanor controleur;
 	protected static VuePvZanor instance = null; 
-	public static VuePvZanor getInstance() {if(null==instance)instance = new VuePvZanor();return VuePvZanor.instance;}; 
+	public static VuePvZanor getInstance() {if(null==instance)instance = new VuePvZanor();return VuePvZanor.instance;};
+	protected HashMap<ZOMBIES, Image> enumVersImage;
 	
 	private VuePvZanor() 
 	{
@@ -35,6 +39,14 @@ public class VuePvZanor extends Vue {
 		super.controleur = this.controleur = new ControleurPvZanor();
 		Logger.logMsg(Logger.INFO, "new VuePvZanor()");
 
+		enumVersImage = new HashMap<>();
+		
+		enumVersImage.put(ZOMBIES.NORMAL, new Image("vue/decoration/zombies/zombie_normal.png"));
+		enumVersImage.put(ZOMBIES.CONE, new Image("vue/decoration/zombies/zombie_cone.png"));
+		enumVersImage.put(ZOMBIES.SEAU, new Image("vue/decoration/zombies/zombie_seau.png"));
+		enumVersImage.put(ZOMBIES.FOOTBALL, new Image("vue/decoration/zombies/zombie_football.png"));
+		enumVersImage.put(ZOMBIES.VAGUE, new Image("vue/decoration/zombies/zombie_drapeau.png"));
+		enumVersImage.put(ZOMBIES.JOURNAL, new Image("vue/decoration/zombies/zombie_journal.png"));
 	}
 	
 	public void afficherTerrain (TERRAIN terrain) {
@@ -337,6 +349,7 @@ public class VuePvZanor extends Vue {
 		if(planteChoisi == PLANTES.TALLNUT) {
 		plantePlantee.setImage(new Image("vue/decoration/plantes/tallnut.jpg"));
 		}
+		
 		plantePlantee.setPreserveRatio(true);
 		plantePlantee.setFitHeight(100);
 		plantePlantee.setY(y - 50);
@@ -350,6 +363,7 @@ public class VuePvZanor extends Vue {
 	public void placerZombies(double x, double y, ZOMBIES zombiesChoisi) {
 		
 		ImageView zombiePlacer = new ImageView();
+		/*
 		if(zombiesChoisi == ZOMBIES.NORMAL) {
 		zombiePlacer.setImage(new Image("vue/decoration/zombies/zombie_normal.png"));
 		}
@@ -367,6 +381,32 @@ public class VuePvZanor extends Vue {
 		}
 		if(zombiesChoisi == ZOMBIES.JOURNAL) {
 			zombiePlacer.setImage(new Image("vue/decoration/zombies/zombie_journal.png"));
+		}*/
+		
+		switch (zombiesChoisi) {
+		case NORMAL:
+			zombiePlacer.setImage(this.enumVersImage.get(ZOMBIES.NORMAL));
+			break;
+			
+		case CONE:
+			zombiePlacer.setImage(this.enumVersImage.get(ZOMBIES.CONE));
+			break;
+			
+		case SEAU:
+			zombiePlacer.setImage(this.enumVersImage.get(ZOMBIES.SEAU));
+			break;
+			
+		case FOOTBALL:
+			zombiePlacer.setImage(this.enumVersImage.get(ZOMBIES.FOOTBALL));
+			break;
+			
+		case VAGUE:
+			zombiePlacer.setImage(this.enumVersImage.get(ZOMBIES.VAGUE));
+			break;
+			
+		case JOURNAL:
+			zombiePlacer.setImage(this.enumVersImage.get(ZOMBIES.JOURNAL));
+			break;
 		}
 		
 		zombiePlacer.setPreserveRatio(true);
@@ -378,6 +418,25 @@ public class VuePvZanor extends Vue {
 		jardin.getChildren().add(zombiePlacer);
 	}
 	
-
+	public void EnleverImageView() {
+		AnchorPane jardin = (AnchorPane)lookup("#jardin");
+		jardin.getChildren().clear();
+	}
 	
+	public void RecreerImageView() {
+		AnchorPane jardinGraphique = (AnchorPane)lookup("#jardin");
+		Jardin jardin = controleur.getJardin();
+		
+		List<Plantes> listePlante = jardin.getPlantesDuJardin();
+		
+		for (Plantes plante : listePlante) {
+			planterPlantes(plante.getX(), plante.getY(), plante.getPlantes());
+		}
+		
+		List<Zombies> listeZombie = jardin.getZombiesDuJardin();
+		
+		for (Zombies zombie : listeZombie) {
+			placerZombies(zombie.getX(), zombie.getY(), zombie.getZombies());
+		}
+	}
 }
